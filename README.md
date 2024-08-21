@@ -4,15 +4,15 @@
 
 ### Prerequisites:
 
-- [Node](https://nodejs.org/en/) and [Yarn](https://yarnpkg.com/)
+- [Node](https://nodejs.org/en/) 
 
-### Clone this repo and install with:
+### Clone this repo and install and start with:
 
-- ```yarn install```
+- ```npm i and npm start```
 
 ### Build the project:
 
-- ```yarn build```
+- ```npm run build```
 
 
 ### From Looker, add a `visualization` parameter to your project's `manifest.lkml` file:
