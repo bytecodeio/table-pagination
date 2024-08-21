@@ -36,18 +36,19 @@ import { TablePagination } from "@mui/material";
 
 
 const Styles = ({ children, config }) => {
-  var { thColor, thFontSize, tableBordered, fixedHeight, unsetTable, hidePag, removeBars, rightPag, index } = config;
+  var { thColor, thFontSize, tableBordered, fixedHeight, unsetTable, hidePag, removeBars, rightPag, index, bodyStyle } = config;
 
   const StyledWrapper = styled.div`
 
-@import url(https://db.onlinewebfonts.com/c/c6da2799f8877386e9a261e8744b2885?family=Aeonik+Pro+Light);
-@import url(https://db.onlinewebfonts.com/c/c6da2799f8877386e9a261e8744b2885?family=Aeonik+Pro+Bold);
+    @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap');
+
+    @import url('https://fonts.googleapis.com/css?family=Open+Sans:wght@100;300;400;500;700;900&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap');
+
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400;500;700;900&display=swap');
 
 
-    @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@100;300;500;600;700&display=swap');
-
-
-  @import url("https://kit-pro.fontawesome.com/releases/v5.15.1/css/pro.min.css");
+    @import url("https://kit-pro.fontawesome.com/releases/v5.15.1/css/pro.min.css");
 
   #vis-container {
       height: 100%;
@@ -55,7 +56,7 @@ const Styles = ({ children, config }) => {
       width: 100%;
       display: flex;
       flex-direction: column;
-      font-family: "Aeonik Pro Light"  !important;
+
       font-weight: 300;
       justify-content:center
  }
@@ -86,13 +87,13 @@ const Styles = ({ children, config }) => {
       fill: rgb(199, 32, 10) !important;
  }
   body {
-      font-family: "Aeonik Pro Light"  !important;
+  font-family:${bodyStyle ? bodyStyle : "'Roboto'"}
  }
   thead th {
       font-size: 12px !important;
       color: ${thColor};
       font-weight: 400;
-      font-family: "Aeonik Pro Light"  !important;
+
       text-align: left;
  }
   tbody > tr > td {
@@ -107,7 +108,7 @@ const Styles = ({ children, config }) => {
  }
   .moveRight {
       margin: 0em 0em 0em 0.5em !important;
-      font-family: "Aeonik Pro Light"  !important;
+
  }
   .d-flex {
       display: flex;
@@ -196,7 +197,7 @@ const Styles = ({ children, config }) => {
       padding: 0.25em 0.75em 0.25em 1.55em !important;
  }
   .warning::before {
-      font-family: "Font Awesome 5 Pro";
+
       position: absolute;
       content: "\f06a";
       display: inline-block;
@@ -565,7 +566,7 @@ width: 99%;
       z-index: 100;
  }
   .table {
-      font-family: "Aeonik Pro Light"  !important;
+        font-family:${bodyStyle ? bodyStyle : "'Roboto'"}
       display: inline-block;
       border-spacing: 0;
       .th {
@@ -573,7 +574,6 @@ width: 99%;
           text-transform: capitalize;
 
 
-          font-family: 'DM Sans', sans-serif !important;
           text-align: left;
           border-right: 1px solid white;
           font-weight: 700;
@@ -581,13 +581,13 @@ width: 99%;
       .td {
           font-size: 12px !important;
           text-align: left;
-          font-family: "Aeonik Pro Light"  !important;
+
           min-height:55px
      }
       .th, .td {
           margin: 0;
           padding: 1.5rem;
-          font-family: "Aeonik Pro Light"  !important;
+
           position: relative;
           font-weight:300;
           height: 55px;
@@ -650,7 +650,7 @@ width: 99%;
       color: #A6A6A6 !important;
       font-weight: 100 !important;
       font-size: 13px !important;
-      font-family: "Aeonik Pro Light"  !important;
+
       min-width: 70%;
       margin-right:.5em;
       line-height:1
@@ -775,7 +775,7 @@ thead tr td{
 function Table({ columns, data, config }) {
 
 
-  var { tableBordered, fixedHeight, unsetTable, hidePag, rightPag, removeBars, index } = config;
+  var { tableBordered, fixedHeight, unsetTable, hidePag, rightPag, removeBars, index, bodyStyle } = config;
 
   const defaultColumn = React.useMemo(
      () => ({
@@ -830,7 +830,7 @@ function Table({ columns, data, config }) {
     <Container fluid className="padding-0 mb-3 mt-2 d-flex justify-content-center align-items-center text-center">
 
       </Container>
-    <Container className={`${config.removeBars ? "scrunch" : "padding-0 second mb-5 mt-2"}`}>
+    <Container className={`${config.removeBars ? "scrunch" : "padding-0 second mb-5 mt-2"}`} style={{fontFamily: config.bodyStyle ? config.bodyStyle : "'Roboto'"}}>
 
       <div className={`${config.unsetTable ? "unsetTable" : ""}`}>
         <div className={`${config.fixedHeight  ? "" : "fixedHeight"}`}>
@@ -926,9 +926,6 @@ function Table({ columns, data, config }) {
                           ))}
                         </thead>
 
-
-
-
                  <tbody {...getTableBodyProps()}>
                      {page.map((row, i) => {
                        prepareRow(row);
@@ -947,14 +944,10 @@ function Table({ columns, data, config }) {
                      })}
                    </tbody>
 
-                     </Fragment>
+             </Fragment>
 
             )
         }
-
-
-
-
 
             </table>
 
@@ -969,30 +962,31 @@ function Table({ columns, data, config }) {
 
 <div className={`${config.hidePag ? "hidden" : "pagination display-flex justify-content-center align-items-center" }`}>
 
-              <Button className="clear" onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
-                {<i class="fal fa-angle-double-left"></i>}
-              </Button>{' '}
-              <Button className="clear" onClick={() => previousPage()} disabled={!canPreviousPage}>
-                {<i class="fal fa-angle-left"></i>}
-              </Button>{' '}
+    <Button className="clear" onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
+    {<i class="fal fa-angle-double-left"></i>}
+    </Button>{' '}
+    <Button className="clear" onClick={() => previousPage()} disabled={!canPreviousPage}>
+    {<i class="fal fa-angle-left"></i>}
+    </Button>{' '}
 
-              <span className="numBack">{pageIndex + 1}</span> <span>of</span> <span className="clearBack">{pageOptions.length}</span>
+    <span className="numBack">{pageIndex + 1}</span> <span>of</span> <span className="clearBack">{pageOptions.length}</span>
 
-                {' '}
+    {' '}
 
-              <Button className="clear" onClick={() => nextPage()} disabled={!canNextPage}>
-                {<i class="fal fa-angle-right"></i>}
-              </Button>{' '}
-              <Button className="clear" onClick={() => gotoPage(pageCount - 1)} disabled={!canNextPage}>
-                {<i class="fal fa-angle-double-right"></i>}
-              </Button>{' '}
+    <Button className="clear" onClick={() => nextPage()} disabled={!canNextPage}>
+    {<i class="fal fa-angle-right"></i>}
+    </Button>{' '}
+    <Button className="clear" onClick={() => gotoPage(pageCount - 1)} disabled={!canNextPage}>
+    {<i class="fal fa-angle-double-right"></i>}
+    </Button>{' '}
 
 
-            </div>
+  </div>
 
     </>
   );
 }
+
 
 
 
@@ -1007,506 +1001,73 @@ const createLabel = (label) => {
 
 export const CustomTable = ({ data, config, queryResponse, details, done }) => {
 
+
+
+
   const [page, setPage] = useState(2);
   const [rowsPerPage, setRowsPerPage] = useState(2);
   const [firstData = {}] = data;
-  let cols_to_hide = [];
 
-  for (const [key, value] of Object.entries(firstData)) {
-    if (key.split(".")[1] === "columns_to_hide") {
-      cols_to_hide = firstData[key].value.split(",").map((e) => e.trim());
-      break;
-    }
-  }
-
-  cols_to_hide.map((col) => {
-    delete firstData[col];
-  });
 
   const data2 = useMemo(() => data, []);
 
 
-  console.log(data)
 
     const columns = useMemo(
-       () =>
-         Object.keys(firstData)
-
-           .filter(
-             (key) =>
-               key.indexOf("logo_text") === -1 &&
-               key.indexOf("property_floor") === -1 &&
-               key.indexOf("units_occupied_yoy_delta") === -1 &&
-               key.indexOf("sentiment_date") === -1 &&
-               key.indexOf("avatar_name") === -1 &&
-               key.indexOf("watch_count") === -1
-
-             // && key !== "average_reference_line"
-           )
-
-
-
-           .map((key) => {
-             const [tableKeyword, slicedKey] = key.split(".");
-
-             // var slicedKey = [];
-             // var tableKeyword = [];
-             // if (key !== "progress_bar") {
-             //   var [tableKeyword, slicedKey] = key.split(".");
-             // }
-             // if (key === "progress_bar") {
-             //   var slicedKey = key;
-             // }
-
-             const dimension = config.query_fields.dimensions.find(
-               (dimension) => dimension.name === key
-             );
-
-             return {
-               Header:
-                 slicedKey === key
-                   ? key
-                   : dimension?.field_group_variant ||
-                     // dimension?.field_group_variant ||
-
-                     config.query_fields.measures.find(
-                       (dimension) => dimension.name === key
-                     )?.field_group_variant ||
-                     slicedKey,
-
-                 accessor: (d) => {
-                 return d[key].value;
-               },
-
-               sortable: true,
-
-               sortType: "basic",
-
-               // Cell: (  { row: { original } }) => {
-               //   return original[key]?.rendered || original[key]?.value;
-               // },
-
-               Cell: ({ cell, value, row }) => {
-                 // const row = cell.row.original;
-
-                 if (slicedKey === "logo_url") {
-                   return (
-                     <>
-                       <div class="d-flex align-items-center" id="logoText">
-                         <img
-                           src={
-                             row.original[key]?.rendered ||
-                             row.original[key]?.value
-                           }
-                           alt=""
-                           class="img-fluid"
-                         />
-
-                         <p class="moveRight">
-                           {row.original[tableKeyword + ".logo_text"]?.rendered ||
-                             row.original[tableKeyword + ".logo_text"]?.value}
-                         </p>
-                       </div>
-                     </>
-                   );
-                 }
-
-                 if (slicedKey === "property_name") {
-                   return (
-                     <>
-                       <div class="d-flex flex-column" id="propertyInfo">
-                         <h3>
-                           {row.original[key]?.rendered ||
-                             row.original[key]?.value}
-                         </h3>
-
-                         <p class="small">
-                           {row.original[tableKeyword + ".property_floor"]
-                             ?.rendered ||
-                             row.original[tableKeyword + ".property_floor"]?.value}
-                         </p>
-                       </div>
-                     </>
-                   );
-                 }
-
-                 if (slicedKey === "units_occupied") {
-                   return (
-                     <>
-                       <div
-                         class="var d-flex justify-content-start align-items-center"
-                         id="unitVariance"
-                       >
-                         <h3>
-                           {row.original[key]?.rendered ||
-                             row.original[key]?.value}
-                         </h3>
-
-                         <span
-                           className={
-                             row.original[
-                               tableKeyword + ".units_occupied_yoy_delta"
-                             ]?.value < 0
-                               ? "type negative"
-                               : "type positive"
-                           }
-                         >
-                           <i class="fal fa-arrow-up mr-2"></i>
-
-                           {row.original[
-                             tableKeyword + ".units_occupied_yoy_delta"
-                           ]?.rendered ||
-                             row.original[
-                               tableKeyword + ".units_occupied_yoy_delta"
-                             ]?.value}
-                         </span>
-                       </div>
-                     </>
-                   );
-                 }
-
-                 if (slicedKey === "sentiment") {
-                   return (
-                     <>
-                       <div class="d-flex flex-column" id="sentimentInfo">
-                         <p
-                           className={
-                             row.original[key]?.value === "Positive"
-                               ? "pos"
-                               : row.original[key]?.value === "Negative"
-                               ? "neg"
-                               : "neut"
-                           }
-                         >
-                           {row.original[key]?.rendered ||
-                             row.original[key]?.value}
-                         </p>
-
-                         <p class="small mr-2">
-                           {row.original[tableKeyword + ".sentiment_date"]
-                             ?.rendered ||
-                             row.original[tableKeyword + ".sentiment_date"]?.value}
-                         </p>
-                       </div>
-                     </>
-                   );
-                 }
-
-                 if (slicedKey === "key_count") {
-                   return (
-                     <>
-                       <div class="d-flex align-items-center" id="keyWatch">
-                         <h3 class="mr-2">
-                           <i class="far fa-key"></i>{" "}
-                           {row.original[key]?.rendered ||
-                             row.original[key]?.value}
-                         </h3>
-
-                         <h3>
-                           <i class="far fa-eye pr-1"></i>
-
-                           {row.original[tableKeyword + ".watch_count"]
-                             ?.rendered ||
-                             row.original[tableKeyword + ".watch_count"]?.value}
-                         </h3>
-                       </div>
-                     </>
-                   );
-                 }
-
-                 if (slicedKey === "avatar_url") {
-                   return (
-                     <>
-                       <div class="d-flex align-items-center" id="avatarInfo">
-                         <img
-                           class="img-fluid avatar mr-2"
-                           src={
-                             row.original[key]?.rendered ||
-                             row.original[key]?.value
-                           }
-                         />
-
-                         <p class="ms-2 small black">
-                           {row.original[tableKeyword + ".avatar_name"]
-                             ?.rendered ||
-                             row.original[tableKeyword + ".avatar_name"]?.value}
-                         </p>
-                       </div>
-                     </>
-                   );
-                 }
-
-                 if (slicedKey === "unit_variance") {
-                   return (
-                     <>
-                       <div
-                         className={
-                           row.original[key]?.value < 0
-                             ? "negativeBlock"
-                             : "positiveBlock"
-                         }
-                       >
-                         <p>
-                           {row.original[key]?.rendered ||
-                             row.original[key]?.value}
-                           %
-                         </p>
-                       </div>
-                     </>
-                   );
-                 }
-
-                 if (slicedKey === "tags") {
-                   var tags = row.original[key]?.value;
-
-                   const items = tags.map((hero, index) => (
-                     <li
-                       className={
-                         hero === "Critical"
-                           ? "tag critical"
-                           : hero === "Warning"
-                           ? "tag warning"
-                           : hero === "Informational"
-                           ? "tag informational"
-                           : hero === "Neutral"
-                           ? "tag neutral"
-                           : hero === "Branded"
-                           ? "tag branded"
-                           : "tag success"
-                       }
-                     >
-                       {hero}
-                     </li>
-                   ));
-
-                   return (
-                     <>
-                       <div class="mb-0" id="tagInfo">
-                         <ul>{items}</ul>
-                       </div>
-                     </>
-                   );
-                 }
-
-                 if (slicedKey === "sum_total_units") {
-                   return (
-                     <>
-                       <div className="position-relative">
-                         <div className="progress">
-                           <div
-                             className="progress-bar"
-                             role="progressbar"
-                             style={{ width: row.original[key]?.value }}
-                           ></div>
-                         </div>
-
-                         <span className="progress-label">
-                           {row.original[key]?.rendered ||
-                             row.original[key]?.value}
-                         </span>
-                       </div>
-                     </>
-                   );
-                 }
-
-                 if (slicedKey === "sparkline_list_2") {
-                   var arry = row.original[key]?.value;
-
-                   function calculateAverage(array) {
-                     var total = 0;
-
-                     var count = 0;
-
-                     array.forEach(function (item, index) {
-                       total += item;
-
-                       count++;
-                     });
-
-                     return total / count;
-                   }
-
-                   var average = calculateAverage(arry);
-
-                   const iterator = arry.values();
-
-                   var val = "";
-
-                   for (var value of iterator) {
-                     var val = value;
-
-                     if (val > average) {
-                       // console.log(val)
-                     }
-                   }
-
-                   var last =
-                     row.original[key]?.value[row.original[key]?.value.length - 1];
-
-                   var first = row.original[key]?.value[0];
-
-                   return (
-                     <div>
-
-                     <div id="spark2">
-
-                     <Sparklines
-                     data={row.original[key]?.value}
-                     limit={10}
-                     width={198}
-                     height={38}
-                     margin={2}
-                     >
-
-                         {/*<SparklinesLine
-                         style={{
-                           strokeWidth: 2,
-
-                           stroke: last < first ? "#C7200A" : "#39800B",
-
-                           fill: last < first ? "#C7200A" : "#39800B"
-                         }}/>*/}
-
-                       <SparklinesBars style={{ fill: last < first ? "#C7200A" : "#39800B", fillOpacity: ".3" }} />
-
-                         <SparklinesReferenceLine
-                         type={"median"}
-
-                           stroke={last < first ? "#C7200A" : "#39800B"}
-                           />
-                     </Sparklines>
-
-                     </div>
-
-                     <div id="spark3">
-
-                     <Sparklines
-                     data={row.original[key]?.value}
-                     limit={10}
-                     width={198}
-                     height={38}
-                     margin={0}
-                     >
-
-                       <SparklinesLine
-                         style={{
-                           strokeWidth: 2,
-
-                           stroke: last < first ? "#C7200A" : "#39800B",
-
-                           fill: last < first ? "#C7200A" : "#39800B"
-                         }}/>
-
-
-                         <SparklinesReferenceLine
-                         type={"median"}
-
-                           stroke={last < first ? "#C7200A" : "#39800B"}
-                           />
-                     </Sparklines>
-
-                     </div>
-
-
-                     </div>
-
-
-                   );
-                 }
-
-                 if (slicedKey === "sparkline_list") {
-                   var last =
-                     row.original[key]?.value[row.original[key]?.value.length - 1];
-
-                   const first = row.original[key]?.value[0];
-
-                   var LinearGradientFill = (stopColor) => {
-                     var stopColor1 = "rgb(199, 32, 10)";
-
-                     var stopColor2 = "rgb(57, 128, 11)";
-
-                     return (
-                       <linearGradient
-                         id="gradient"
-                         x1="0%"
-                         y1="0%"
-                         x2="0%"
-                         y2="100%"
-                       >
-                         <stop
-                           offset="0%"
-                           stopColor={last < first ? stopColor1 : stopColor2}
-                           stopOpacity="1"
-                         />
-
-                         <stop
-                           offset="100%"
-                           stopColor={last < first ? stopColor1 : stopColor2}
-                           stopOpacity="0"
-                         />
-                       </linearGradient>
-                     );
-                   };
-
-                   return (
-                     <div id="spark1">
-                       <Sparklines
-                         data={row.original[key]?.value}
-                         limit={10}
-                         width={198}
-                         height={38}
-                         margin={0}
-                         strokeWidth={"2px"}
-                       >
-                         <svg>
-                           <defs>
-                             <LinearGradientFill />
-                           </defs>
-                         </svg>
-
-                         <SparklinesCurve
-                           color={last < first ? "#C7200A" : "#39800B"}
-                           style={{
-                             strokeWidth: 5,
-
-                             // fill: 'url(#gradient)'
-                           }}
-                           strokeWidth={"2px"}
-                           type={"area"}
-                         />
-                       </Sparklines>
-                     </div>
-                   );
-                 }
-
-                 if (slicedKey === "progress") {
-                   const now = row.original[key]?.value * 100;
-
-                   // console.log(now);
-
-                   return (
-                     <>
-                       <div className="skinny">
-                         <ProgressBar now={now} label={`${now}%`} visuallyHidden />
-
-                         <span className="progress-label">
-                           {row.original[key]?.rendered ||
-                             row.original[key]?.value}
-                         </span>
-                       </div>
-                     </>
-                   );
-                 }
-
-                 return row.original[key]?.rendered || row.original[key]?.value;
-               },
-
-               headerClassName: "table-header1",
-             };
-           }),
-
-       []
-     );
+      () =>
+        Object.keys(firstData).map((key) => {
+
+
+  return {
+    id: key,
+    Header: createLabel(key),
+    accessor: (d) => {
+      return d[key].value
+    },
+
+    sortable: true,
+
+    sortType: 'basic',
+    // Cell: (  { row: { original } }) => {
+    //   return original[key]?.rendered || original[key]?.value;
+    // },
+    Cell: ({ cell, value, row }) => {
+
+
+      if (key === "days_since_last_activity_from_today") {
+        return (
+                      <>
+
+                          <span class="redBackground">
+                            {row.original[key]?.rendered || row.original[key]?.value}
+                          </span>
+
+                      </>
+                    );
+
+      }
+
+      if (row.original[key]?.html){
+
+
+      let comment1 = `${row.original[key]?.html}`
+      return <div dangerouslySetInnerHTML={{__html:comment1}} />
+
+    }
+    else{
+      return row.original[key]?.rendered || row.original[key]?.value
+    }
+
+      {/*return row.original[key]?.rendered || row.original[key]?.value*/}
+    },
+    headerClassName: "table-header1",
+  };
+
+
+
+        }),
+      []
+    );
 
 
 
